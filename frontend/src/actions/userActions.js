@@ -1,4 +1,4 @@
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAIL, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAIL, USER_LIST_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_DELETE_FAIL} from "../constants/userConstants"
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAIL, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS, USER_UPDATE_FAIL, USER_LIST_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_DELETE_REQUEST, USER_DELETE_SUCCESS, USER_DELETE_FAIL, USER_UP_REQUEST, USER_UP_SUCCESS, USER_UP_FAIL} from "../constants/userConstants"
 import axios from 'axios'
 
 export const login = (email, password) => async (dispatch) => {
@@ -52,7 +52,7 @@ export const register = (name, email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://localhost:3001/api/users/register', {
+        const { data } = await axios.post('http://localhost:3001/api/users/', {
             name,
             email,
             password,
@@ -180,7 +180,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.delete(`/api/users/${id}`, config)
+        await axios.delete(`http://localhost:3001/api/users/${id}`, config)
 
         dispatch({
             type: USER_DELETE_SUCCESS
@@ -188,6 +188,37 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     } catch(error) {
         dispatch({
             type: USER_DELETE_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+}
+
+export const updateUser = (user) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_UP_REQUEST
+        })
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.put(`http://localhost:3001/api/users/${user._id}`, user, config)
+        
+        dispatch({
+            type: USER_UP_SUCCESS
+        })
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
+    } catch(error) {
+        dispatch({
+            type: USER_UP_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         })
     }

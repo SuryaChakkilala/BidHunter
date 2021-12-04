@@ -10,6 +10,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import AboutScreen from './screens/AboutScreen'
 import UserListScreen from './screens/UserListScreen'
 import Reckz from './screens/Reckz'
+import UserEditScreen from './screens/UserEditScreen'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
               <Route path='/about' element={<AboutScreen />} />
               <Route path='/admin/userList' element={<UserListScreen />} />
               <Route path='/search/:keyword' />
+              <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
             </Routes>
         </Container>
       </main>

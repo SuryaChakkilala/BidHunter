@@ -45,24 +45,24 @@ const RegisterScreen = () => {
             {message && <Message variant='danger'>{message}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
-            <Form.Group controlId="emailID">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control className='my-2' type="text" placeholder="Enter Name" value={name} onChange={(e)=>{setName(e.target.value)}}></Form.Control>
-                </Form.Group>
                 <Form.Group controlId="emailID">
-                    <Form.Label>Email Address</Form.Label>
-                    <Form.Control className='my-2' type="email" placeholder="Enter Email" value={email} onChange={(e)=>{setEmail(e.target.value)}}></Form.Control>
-                </Form.Group>
-                <Form.Group className='py-3' controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></Form.Control>
-                </Form.Group>
-                <Form.Group className='py-3' controlId="confirm password">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}}></Form.Control>
-                </Form.Group>
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control className='my-2' type="text" placeholder="Enter Name" value={name} onChange={(e)=>{setName(e.target.value)}}></Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="emailID">
+                        <Form.Label>Email Address</Form.Label>
+                        <Form.Control className='my-2' type="email" placeholder="Enter Email" value={email} onChange={(e)=>{setEmail(e.target.value)}}></Form.Control>
+                    </Form.Group>
+                    <Form.Group className='py-3' controlId="password">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter Password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></Form.Control>
+                    </Form.Group>
+                    <Form.Group className='py-3' controlId="confirm password">
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}}></Form.Control>
+                    </Form.Group>
 
-                <Button className='my-2' type="submit" variant="primary">Sign Up</Button>
+                    <Button className='my-2' type="submit" variant="primary">Sign Up</Button>
             </Form>
             <Row className='py-3'>
                 <Col>

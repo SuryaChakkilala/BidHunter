@@ -16,7 +16,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         dispatch(listProducts(keyword))
-    }, [dispatch])
+    }, [dispatch, keyword])
 
     return (
         <>
