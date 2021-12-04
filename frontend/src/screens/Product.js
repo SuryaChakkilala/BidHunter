@@ -1,68 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Row, Col, Image, ListGroup, Button, Form } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails } from '../actions/productActions'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { ArrowLeft } from 'react-bootstrap-icons'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
+import { Row, Col } from 'react-bootstrap'
 
-const ProductScreen = () => {
+const Product = () => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-
     const navigate = useNavigate()
-    
-    const { id } = useParams()   // alternate to props.match.params
-    
-    const dispatch = useDispatch()
-
-    const [price, setPrice] = useState(0)
-
+    const { id } = useParams()
+    const [product, setProduct] = useState({})
     useEffect(()=>{
-        dispatch(listProductDetails(id))
-        const fun = async () => {
+        const fun = async() => {
             const response = await axios.get(`http://localhost:3001/api/products/${id}`)
-            setPrice(response.data.price)
+            setProduct(response.data)
         }
         fun()
-    }, [price])
-
-    const productDetails = useSelector(state => state.productDetails)
-    const { loading, error, product } = productDetails
-    const [offer, setOffer] = useState(0)
-    
-    const submitHandler = (e) => {
-        e.preventDefault()
-        /*if(Number(offer)>product.price) {
-            setPrice(Number(offer))
-        }
-        else
-            window.alert('INVALID')*/
-        if(Number(offer)>price) {
-            setPrice()
-            console.log(Number(offer))
-            console.log(price)
-            console.log('success')
-        } else {
-            window.alert('Cannot Bid with that offer')
-        }
-        console.log(Number(price))
-    }
-    const closeBid = (e) => {
-        console.log('close bid')
-    }
-
+    }, [product])
     return (
         <>
             <Link className='btn btn-dark my-3' to='/'>
                 <ArrowLeft className="mx-2"/>Go Back
             </Link>
-            {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
-                <Row>
+            <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid/>
                 </Col>
@@ -140,9 +100,8 @@ const ProductScreen = () => {
                     </ListGroup>
                 </Col>
             </Row>
-            )}
         </>
     )
 }
 
-export default ProductScreen
+export default Product

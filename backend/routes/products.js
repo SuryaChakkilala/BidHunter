@@ -1,15 +1,16 @@
 const express = require('express')
 const {Product} = require('../models/product')
 const asyncHandler = require('express-async-handler')
-const { getProducts, getProductsById } = require('../controllers/productController')
+const { getProducts, getProductsById, updatePriceById, deleteProduct, createProduct, updateProduct } = require('../controllers/productController')
+const { protect, admin } = require('../middleware/authMiddleware')
 
 const router = express.Router()
 
-router.route('/').get(getProducts)
+router.route('/').get(getProducts).post(protect, admin, createProduct)
 
-router.route('/:id').get(getProductsById)
+router.route('/:id').get(getProductsById).put(updatePriceById).delete(protect, admin, deleteProduct).put(protect, updateProduct)
 
-router.post('/', asyncHandler(async (req, res) => {
+/*router.post('/', asyncHandler(async (req, res) => {
     let product = new Product({
         user: req.body.user,
         name: req.body.name,
@@ -31,14 +32,7 @@ router.post('/', asyncHandler(async (req, res) => {
         return new Error('Cannot POST')
     }
     res.status(201).send(product)
-}))
-
-router.delete('/:id', asyncHandler(async (req, res)=>{
-    const product = await Product.findByIdAndDelete(req.params.id)
-
-    if(!product) return res.status(404).json({success: false})
-    res.status(201).send(product)
-}))
+}))*/
 
 router.put('/:id', asyncHandler(async (req, res) => {
     const product = await Product.findByIdAndUpdate(req.params.id, {

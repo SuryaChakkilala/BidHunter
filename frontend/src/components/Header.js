@@ -4,8 +4,6 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
 import { useNavigate } from 'react-router-dom'
-import SearchBox from './SearchBox'
-import { Route, Routes } from 'react-router-dom'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -29,10 +27,9 @@ const Header = () => {
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="justify-content-end">
-                        <SearchBox navigate={navigate} />
                         <Nav className='ms-auto'>
                         {userInfo && userInfo.isAdmin && (
-                                <NavDropdown title='Admin' id='adminmeny'>
+                                <NavDropdown title='Admin' id='adminmenu'>
                                 <LinkContainer to='/admin/userlist'>
                                     <NavDropdown.Item>Users</NavDropdown.Item>
                                 </LinkContainer>
@@ -53,7 +50,7 @@ const Header = () => {
                                 </NavDropdown>
                             ) : 
                             <LinkContainer to='/login'>
-                            <Nav.Link ><i className='fas fa-user'></i>{t}Sign In</Nav.Link>
+                                <Nav.Link ><i className='fas fa-user'></i>{t}Sign In</Nav.Link>
                             </LinkContainer>}
                         </Nav>
                     </Navbar.Collapse>
