@@ -56,8 +56,10 @@ exports.registerUser = asyncHandler(async (req,res)=>{
     
     const userExists = await User.findOne({email: req.body.email})
 
-    if(userExists) return res.status(404).send({message: 'User already exists', success: false}) 
-    
+    if(userExists)  {
+        return res.status(404)
+        throw new Error('User already exists') 
+    }
     let user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -67,8 +69,10 @@ exports.registerUser = asyncHandler(async (req,res)=>{
     })
     user = await user.save();
 
-    if(!user)
-    return res.status(400).send('the user cannot be created!')
+    if(!user) {
+        res.status(400)
+        throw new Error('User cannot be created')
+    }
 
     res.send(user);
 })

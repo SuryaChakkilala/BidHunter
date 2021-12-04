@@ -32,11 +32,4 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.passwordHash)
 }
 
-userSchema.pre('save', async function(next) {
-    if(!this.isModified('passwordHash')) {
-        next()
-    }
-    this.passwordHash = await bcrypt.hashSync(this.passwordHash, 10)
-})
-
 exports.User = mongoose.model('User', userSchema)
