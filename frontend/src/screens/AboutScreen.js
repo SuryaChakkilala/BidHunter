@@ -44,10 +44,12 @@ const AboutScreen = () => {
                                     
                                     We have also created payment gateway " <b>reckz coins</b> " which need to 
                             be acquired using real money which will reflect as reckz coins in user 
-                            profile . One can bid for any product using these reckz coins.<br /> 
-
-                                    We had also implemeted user stories which is an informal expression 
-                            from end user.<br /></p>
+                            profile . One can bid for any product using these reckz coins.<br /></p><br /><br />
+                            <figure>
+                                <figcaption class="blockquote-footer">
+                                    * Spare a few minutes to help us improve by clicking the button below that redirects to the Feedback Form
+                                </figcaption>
+                        </figure>
                         <Button className="btn btn-primary" href="https://forms.office.com/Pages/ResponsePage.aspx?id=PsiMgEal50egP3Oh67ok80H4kI1c4EhNtm-NHJ7Yb4tUOUYyM1hCOFBHSVdXRU1PVUhMTlRWUThWOS4u">
                             Feedback Form
                         </Button>

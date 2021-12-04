@@ -47,7 +47,7 @@ const RegisterScreen = () => {
             <Form onSubmit={submitHandler}>
             <Form.Group controlId="emailID">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control className='my-2' type="name" placeholder="Enter Name" value={name} onChange={(e)=>{setName(e.target.value)}}></Form.Control>
+                    <Form.Control className='my-2' type="text" placeholder="Enter Name" value={name} onChange={(e)=>{setName(e.target.value)}}></Form.Control>
                 </Form.Group>
                 <Form.Group controlId="emailID">
                     <Form.Label>Email Address</Form.Label>

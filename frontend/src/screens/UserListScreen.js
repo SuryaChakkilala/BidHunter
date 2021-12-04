@@ -22,7 +22,10 @@ const UserListScreen = () => {
     }, [dispatch, successDelete])
 
     const deleteHandler = (id) => {
-        dispatch(deleteUser(id))
+        if(window.confirm('Are you sure?')) {
+            dispatch(deleteUser(id))
+            window.location.reload()   
+        }
     }
 
     return (

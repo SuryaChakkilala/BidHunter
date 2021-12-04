@@ -47,6 +47,7 @@ const ProfileScreen = () => {
         } else {
             dispatch(updateUserProfile({ id: user._id, name, email }))
             dispatch(getUserDetails('profile'))
+            setMessage(null)
             dispatch(logout())
             navigate('/login')
         }

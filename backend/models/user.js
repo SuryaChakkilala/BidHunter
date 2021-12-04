@@ -36,9 +36,7 @@ userSchema.pre('save', async function(next) {
     if(!this.isModified('passwordHash')) {
         next()
     }
-
-    const salt = await bcrypt.getSalt(10)
-    this.passwordHash = await bcrypt.hashSync(this.passwordHash, salt)
+    this.passwordHash = await bcrypt.hashSync(this.passwordHash, 10)
 })
 
 exports.User = mongoose.model('User', userSchema)
