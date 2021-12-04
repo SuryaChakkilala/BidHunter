@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler')
-const { authUser, getUserProfile, registerUser, updateUserProfile, getUsers } = require('../controllers/userControllers')
+const { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser } = require('../controllers/userControllers')
 const { protect, admin } = require('../middleware/authMiddleware')
 
 router.route('/')
@@ -70,5 +70,7 @@ router.get(`/get/count`, asyncHandler(async (req, res) =>{
     });
 }))
 
+router.route('/:id').delete(protect, admin, deleteUser)
 
-module.exports =router;
+
+module.exports = router;

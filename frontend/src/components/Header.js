@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
 import { useNavigate } from 'react-router-dom'
 import SearchBox from './SearchBox'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -29,9 +29,19 @@ const Header = () => {
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="justify-content-end">
-                        <SearchBox />
+                        <SearchBox navigate={navigate} />
                         <Nav className='ms-auto'>
-                         {userInfo && <LinkContainer className='px-5' to='/reckz'>
+                        {userInfo && userInfo.isAdmin && (
+                                <NavDropdown title='Admin' id='adminmeny'>
+                                <LinkContainer to='/admin/userlist'>
+                                    <NavDropdown.Item>Users</NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to='/admin/productlist'>
+                                    <NavDropdown.Item>Products</NavDropdown.Item>
+                                </LinkContainer>
+                            </NavDropdown>
+                            )}
+                        {userInfo && <LinkContainer className='px-5' to='/reckz'>
                                 <Nav.Link><i class="fa-solid fa-dollar-sign"></i>{t}Reckz</Nav.Link>
                             </LinkContainer>}
                             {userInfo ? (
@@ -46,4 +56,11 @@ const Header = () => {
                             <Nav.Link ><i className='fas fa-user'></i>{t}Sign In</Nav.Link>
                             </LinkContainer>}
                         </Nav>
-                    </Navbar.
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </header>
+    )
+}
+
+export default Header

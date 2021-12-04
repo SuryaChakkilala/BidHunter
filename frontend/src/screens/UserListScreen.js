@@ -5,20 +5,24 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUsers } from '../actions/userActions'
+import { listUsers, deleteUser } from '../actions/userActions'
 
 const UserListScreen = () => {
     const dispatch = useDispatch()
-
-    useEffect(()=>{
-        dispatch(listUsers())
-    }, [dispatch])
+    const navigate = useNavigate()
 
     const userList = useSelector(state => state.userList)
     const { loading, error, users } = userList
 
+    const userDelete = useSelector(state => state.userDelete)
+    const { success: successDelete } = userDelete
+
+    useEffect(()=>{
+        dispatch(listUsers())
+    }, [dispatch, successDelete])
+
     const deleteHandler = (id) => {
-        console.log('delete')
+        dispatch(deleteUser(id))
     }
 
     return (
