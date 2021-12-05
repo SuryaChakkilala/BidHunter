@@ -56,4 +56,29 @@ router.put('/:id', asyncHandler(async (req, res) => {
     res.status(200).send(product)
 }))
 
+router.post('/temp', asyncHandler(async (req, res) => {
+    let product = new Product({
+        user: req.body.user,
+        name: req.body.name,
+        image: req.body.image,
+        brand: req.body.brand,
+        category: req.body.category,
+        description: req.body.description,
+        rating: req.body.rating,
+        numReviews: 0,
+        price: req.body.price,
+        countInStock: req.body.countInStock,
+        currentHolder: req.body.currentHolder,
+        user: req.body.user
+    })
+
+    product = await product.save()
+    if(product) {
+        res.json(product)
+    } else {
+        res.status(401)
+        throw new Error('CANNOT POST')
+    }
+}))
+
 module.exports = router

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -7,7 +7,7 @@ import Loader from '../components/Loader'
 import { getUserDetails, updateUser } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
 import { useParams } from 'react-router-dom'
-import { USER_UPDATE_RESET, USER_UP_RESET } from '../constants/userConstants'
+import { USER_UPDATE_RESET } from '../constants/userConstants'
 
 const UserEditScreen = () => {
     const { id } = useParams()
@@ -16,15 +16,12 @@ const UserEditScreen = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
-    const [message, setMessage] = useState(null)
     const dispatch = useDispatch()
     const userDetails = useSelector(state => state.userDetails)
     const { loading, error, user } = userDetails
 
     const userUpdate = useSelector(state => state.userUpdate)
     const { loading: loadingUpdate, error: errorUpdate, success:successUpdate } = userUpdate
-    
-    const location = useLocation()
 
     useEffect(()=> {
         if(successUpdate) {

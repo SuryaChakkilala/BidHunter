@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,9 +7,7 @@ import Loader from '../components/Loader'
 import { listProducts, deleteProduct } from '../actions/productActions'
 
 const ProductListScreen = () => {
-    const {id} = useParams()
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const productList = useSelector(state => state.productList)
     const { loading, error, products } = productList
 

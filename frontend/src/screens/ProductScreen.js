@@ -4,17 +4,12 @@ import { Row, Col, Image, ListGroup, Button, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails } from '../actions/productActions'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
 import { ArrowLeft } from 'react-bootstrap-icons'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const ProductScreen = () => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
-
-    const navigate = useNavigate()
     
     const { id } = useParams()   // alternate to props.match.params
     
@@ -28,7 +23,7 @@ const ProductScreen = () => {
             setProduct(response.data)
         }
         fun()
-    }, [])
+    }, [dispatch, id])
 
     const [offer, setOffer] = useState(0)
 

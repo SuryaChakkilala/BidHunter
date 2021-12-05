@@ -26,6 +26,33 @@ router.get(`/get/count`, asyncHandler(async (req, res) =>{
     });
 }))
 
+router.get('/reckz/:id', asyncHandler(async (req, res) =>{
+    const user = await User.findById(req.params.id)
+    if(user) {
+        res.json({
+            reckz: user.reckz
+        })
+    } else {
+        res.status(401)
+        return new Error('Cannot find user')
+    }
+}))
+
+router.put('/reckz/:id', asyncHandler(async (req, res)=>{
+    const user = await User.findByIdAndUpdate(req.params.id, {
+        reckz: req.body.reckz
+    }, {new: true})
+
+    if(user) {
+        res.json({
+            reckz: user.reckz
+        })
+    } else {
+        res.status(401)
+        return new Error('Cannot find user')
+    }
+}))
+
 router.route('/:id').delete(protect, admin, deleteUser).get(protect, admin, getUserById).put(protect, admin, updateUser)
 
 

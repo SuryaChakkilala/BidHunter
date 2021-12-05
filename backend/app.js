@@ -30,9 +30,6 @@ app.use((err, req, res, next) => {
     })
 })
 
-app.get('/', (req, res) => {
-    res.send('THE API IS RUNNING!')
-})
 
 mongoose.connect(db, {
     useNewUrlParser: true,
