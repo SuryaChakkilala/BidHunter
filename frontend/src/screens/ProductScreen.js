@@ -20,20 +20,29 @@ const ProductScreen = () => {
     
     const dispatch = useDispatch()
 
-    const [price, setPrice] = useState(0)
-
+    const [product, setProduct] = useState({})
     useEffect(()=>{
         dispatch(listProductDetails(id))
         const fun = async () => {
             const response = await axios.get(`http://localhost:3001/api/products/${id}`)
-            setPrice(response.data.price)
+            setProduct(response.data)
         }
         fun()
-    }, [price])
+    }, [])
 
-    const productDetails = useSelector(state => state.productDetails)
-    const { loading, error, product } = productDetails
     const [offer, setOffer] = useState(0)
+
+    const update = () => {
+        axios.put(`http://localhost:3001/api/products/${id}`, {
+            price: offer,
+            currentHolder: userInfo._id
+        }).then(response => {
+            const p = {...product}
+            p.price = offer
+            p.currentHolder = userInfo._id
+            setProduct(p)
+        })
+    }
     
     const submitHandler = (e) => {
         e.preventDefault()
@@ -42,15 +51,14 @@ const ProductScreen = () => {
         }
         else
             window.alert('INVALID')*/
-        if(Number(offer)>price) {
-            setPrice()
+        if(Number(offer)>product.price) {
             console.log(Number(offer))
-            console.log(price)
-            console.log('success')
+            console.log(product.price)
+            update()
         } else {
             window.alert('Cannot Bid with that offer')
         }
-        console.log(Number(price))
+        console.log(Number(product.price))
     }
     const closeBid = (e) => {
         console.log('close bid')
@@ -61,7 +69,6 @@ const ProductScreen = () => {
             <Link className='btn btn-dark my-3' to='/'>
                 <ArrowLeft className="mx-2"/>Go Back
             </Link>
-            {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid/>
@@ -87,7 +94,7 @@ const ProductScreen = () => {
                                     Current Bid:
                                 </Col>
                                 <Col>
-                                    <strong>$ {price}</strong>
+                                    <strong>$ {product.price}</strong>
                                 </Col>
                             </Row>
                         </ListGroup.Item>
@@ -112,7 +119,7 @@ const ProductScreen = () => {
                                 </Col>
                             </Row>
                         </ListGroup.Item>
-
+                        <Form onSubmit={submitHandler}>
                         {product.countInStock > 0 && (
                             <ListGroup.Item>
                                 <Row>
@@ -128,7 +135,7 @@ const ProductScreen = () => {
 
                         <ListGroup.Item>
                             <center>
-                                <Button className='btn btn-primary px-5 py-3' type='button' onClick={submitHandler} disabled={product.countInStock === 0}>Bid on the Product</Button>
+                                <Button className='btn btn-primary px-5 py-3' type='submit' disabled={product.countInStock === 0}>Bid on the Product</Button>
                             </center>
                         </ListGroup.Item>
                         {userInfo._id === product.user && 
@@ -137,10 +144,10 @@ const ProductScreen = () => {
                                 <Button className='btn btn-primary px-5 py-3' type='button' onClick={closeBid}>Close Bid</Button>
                             </center>
                         </ListGroup.Item>}
+                        </Form>
                     </ListGroup>
                 </Col>
             </Row>
-            )}
         </>
     )
 }

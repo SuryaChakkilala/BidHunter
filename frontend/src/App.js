@@ -12,6 +12,7 @@ import UserListScreen from './screens/UserListScreen'
 import Reckz from './screens/Reckz'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
+import VoiceRec from './screens/VoiceRec'
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
               <Route path='/admin/userList' element={<UserListScreen />} />
               <Route path='/admin/productlist' element={<ProductListScreen />}/>
               <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
+              <Route path='/voicerec' element={<VoiceRec />} />
             </Routes>
         </Container>
       </main>

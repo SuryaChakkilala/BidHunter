@@ -28,6 +28,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="justify-content-end">
                         <Nav className='ms-auto'>
+                            <LinkContainer to='/voicerec'>
+                                <Nav.Link>Beta Features</Nav.Link>
+                            </LinkContainer>
                         {userInfo && userInfo.isAdmin && (
                                 <NavDropdown title='Admin' id='adminmenu'>
                                 <LinkContainer to='/admin/userlist'>
